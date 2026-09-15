@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме и Портфолио | Мария Дубровина - Методист / Instructional Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            --primary: #556B2F;
+            --primary-hover: #435624;
+            --primary-light: #E8EBE3;
+            --bg: #F7F8F5;
+            --card-bg: #FFFFFF;
+            --text-main: #2C3527;
+            --text-secondary: #5A6355;
+            --border: #E2E5DF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* Hero Section */
+        .hero { padding: 60px 0 40px; text-align: center; }
+        .photo-container {
+            width: 160px; height: 160px; margin: 0 auto 20px;
+            border-radius: 50%; overflow: hidden; border: 4px solid var(--primary);
+            box-shadow: 0 10px 25px -5px rgba(85, 107, 47, 0.2);
+        }
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .hero-badge { display: inline-block; background: var(--primary-light); color: var(--primary); padding: 6px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; }
+        h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+        .hero-subtitle { font-size: 1.25rem; color: var(--primary); font-weight: 500; margin-bottom: 25px; }
+        
+        .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; font-size: 1rem; }
+        .btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); margin-left: 12px; }
+        .btn-outline:hover { background: var(--primary-light); }
+
+        /* Section Titles */
+        .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; color: var(--text-main); position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 40px; height: 3px; background: var(--primary); border-radius: 2px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header .section-title::after { left: 50%; transform: translateX(-50%); }
+
+        /* About Section (Left Aligned) */
+        .about-section { background: var(--card-bg); padding: 40px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 60px; }
+        .about-content { text-align: left; max-width: 850px; margin: 0 auto; font-size: 1.05rem; color: var(--text-secondary); }
+        .about-content p { margin-bottom: 15px; }
+        .about-content strong { color: var(--text-main); }
+
+        /* Skills */
+        .skills-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 60px; }
+        .skill-tag { background: var(--card-bg); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: 500; color: var(--text-main); transition: all 0.2s; }
+        .skill-tag:hover { border-color: var(--primary); background: var(--primary-light); }
+        .skill-tag i { color: var(--primary); margin-right: 4px; }
+
+        /* Portfolio Carousel */
+        .portfolio-section { margin-bottom: 60px; }
+        .swiper { width: 100%; padding-bottom: 50px; }
+        .swiper-slide {
+            background: var(--card-bg); border-radius: 16px; padding: 30px;
+            border: 1px solid var(--border); height: auto; display: flex; flex-direction: column;
+        }
+        .slide-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .slide-icon { width: 45px; height: 45px; background: var(--primary-light); color: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .slide-title { font-size: 1.4rem; font-weight: 700; }
+        .slide-desc { color: var(--text-secondary); font-size: 1rem; margin-bottom: 20px; text-align: left; }
+        
+        .media-frame {
+            width: 100%; height: 500px; background: #F1F5F9; border-radius: 12px; 
+            overflow: hidden; margin-bottom: 24px; border: 1px solid var(--border);
+        }
+        .media-frame iframe { width: 100%; height: 100%; border: none; }
+        
+        /* Большие скриншоты */
+        .screenshots-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 16px; 
+            margin-bottom: 24px; 
+        }
+        .screenshots-grid img { 
+            width: 100%; 
+            height: 240px; 
+            object-fit: cover; 
+            border-radius: 10px; 
+            border: 1px solid var(--border); 
+            transition: all 0.3s; 
+            cursor: pointer; 
+        }
+        .screenshots-grid img:hover { 
+            transform: scale(1.02); 
+            border-color: var(--primary); 
+            box-shadow: 0 8px 20px rgba(85, 107, 47, 0.15); 
+        }
+
+        /* Плашечки инструментов */
+        .tool-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+        .tool-badge {
+            font-size: 0.85rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .tool-badge:hover { border-color: var(--primary); }
+
+        .swiper-button-next, .swiper-button-prev { color: var(--primary); background: white; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        .swiper-button-next::after, .swiper-button-prev::after { font-size: 16px; font-weight: bold; }
+        .swiper-pagination-bullet-active { background: var(--primary); }
+
+        /* Experience & Education Timeline */
+        .resume-section { background: var(--card-bg); padding: 40px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 60px; }
+        .timeline { max-width: 800px; margin: 0 auto; position: relative; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--primary-light); }
+        .timeline-item { position: relative; margin-bottom: 30px; }
+        .timeline-item::before { content: ''; position: absolute; left: -34px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--primary); border: 2px solid var(--bg); }
+        .timeline-date { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+        .timeline-role { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .timeline-company { color: var(--text-secondary); font-weight: 500; margin-bottom: 8px; }
+        .timeline-desc { font-size: 0.95rem; color: var(--text-secondary); }
+        .timeline-desc ul { padding-left: 20px; margin-top: 5px; }
+        .timeline-desc li { margin-bottom: 4px; }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); }
+        .contact-links { display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+        .contact-item { display: flex; align-items: center; gap: 8px; color: var(--text-main); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .contact-item:hover { color: var(--primary); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .btn { width: 100%; justify-content: center; margin: 8px 0 0 0; }
+            .btn-outline { margin-left: 0; }
+            .media-frame { height: 350px; }
+            .screenshots-grid { grid-template-columns: 1fr; }
+            .screenshots-grid img { height: 280px; }
+            .about-section, .resume-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero container">
+        <div class="photo-container">
+            <img src="photo.jpg" alt="Фото Марии Дубровиной">
+        </div>
+        <span class="hero-badge">Открыта к предложениям</span>
+        <h1>Мария Дубровина</h1>
+        <h2 class="hero-subtitle">Резюме и Портфолио | Методист & Instructional Designer</h2>
+        <div>
+            <a href="#contacts" class="btn"><i class="fas fa-envelope"></i> Связаться со мной</a>
+            <a href="#portfolio" class="btn btn-outline"><i class="fas fa-briefcase"></i> Смотреть работы</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="container">
+        <div class="about-section">
+            <div class="section-header">
+                <h2 class="section-title">Обо мне</h2>
+            </div>
+            <div class="about-content">
+                <p>Практико-ориентированный <strong>Instructional Designer</strong> с опытом создания образовательных продуктов от аналитики ЦА до запуска в LMS. Моя суперсила — на стыке педагогики и технологий: я не только проектирую качественную методологию (ADDIE, LXD), но и самостоятельно реализую сложные интерактивы (включая кастомный HTML/JS код), когда возможностей стандартных конструкторов недостаточно.</p>
+                <p>Активно использую нейросети (ChatGPT, DeepSeek) для ускорения разработки контента и визуала. <strong>Двукратный призер</strong> профессионального конкурса методистов и разработчиков обучения «Лампа» (1-е и 2-е места).</p>
+                <p>Ищу команду и проект, где ценят обучение, которое дает реальные практические навыки и измеримый результат. Владею полным циклом: от проектирования до аналитики метрик.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="container">
+        <div class="section-header">
+            <h2 class="section-title">Ключевые навыки</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-tag"><i class="fas fa-brain"></i> ADDIE & SJM</div>
+            <div class="skill-tag"><i class="fas fa-laptop-code"></i> Articulate 360</div>
+            <div class="skill-tag"><i class="fas fa-laptop-code"></i> iSpring Suite</div>
+            <div class="skill-tag"><i class="fas fa-pen-nib"></i> Figma & LXD</div>
+            <div class="skill-tag"><i class="fas fa-code"></i> HTML/CSS (кастомные тренажеры)</div>
+            <div class="skill-tag"><i class="fas fa-robot"></i> AI: ChatGPT, DeepSeek, Midjourney</div>
+            <div class="skill-tag"><i class="fas fa-server"></i> LMS (Skillspace и др.)</div>
+            <div class="skill-tag"><i class="fas fa-users"></i> Анализ ЦА и интервью с экспертами</div>
+            <div class="skill-tag"><i class="fas fa-rocket"></i> Геймификация</div>
+            <div class="skill-tag"><i class="fas fa-chart-line"></i> Оценка эффективности обучения</div>
+        </div>
+    </section>
+
+    <!-- Portfolio Carousel -->
+    <section id="portfolio" class="container portfolio-section">
+        <div class="section-header">
+            <h2 class="section-title">Портфолио проектов</h2>
+        </div>
+        
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                
+                <!-- Slide 1: Субсидии -->
+                <div class="swiper-slide">
+                    <div class="slide-header">
+                        <div class="slide-icon"><i class="fas fa-coins"></i></div>
+                        <h3 class="slide-title">Курс «Субсидии для бизнеса»</h3>
+                    </div>
+                    <p class="slide-desc">
+                        Курс в формате лонгрида (ScrollTool). Когда базового функционала конструктора не хватило для отработки навыка выбора субсидии, я самостоятельно написала и внедрила кастомный HTML/JS тренажер. Он имитирует реальный бизнес-процесс и дает студенту мгновенную обратную связь.
+                    </p>
+                    <div class="media-frame">
+                        <iframe src="simulator.html" title="Тренажер Субсидии"></iframe>
+                    </div>
+                    <div class="screenshots-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto 24px;">
+                        <img src="images/screen5.png" alt="Скриншот курса Субсидии">
+                    </div>
+                    <div class="tool-badges">
+                        <span class="tool-badge">ScrollTool</span>
+                        <span class="tool-badge">HTML/CSS/JS</span>
+                        <span class="tool-badge">SJM</span>
+                        <span class="tool-badge">Кастомная разработка</span>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Японский язык -->
+                <div class="swiper-slide">
+                    <div class="slide-header">
+                        <div class="slide-icon"><i class="fas fa-language"></i></div>
+                        <h3 class="slide-title">Курс «Японский язык»</h3>
+                    </div>
+                    <p class="slide-desc">
+                        Слайдовый курс с сюжетом и геймификацией. Персонажи и фоны созданы с помощью нейросетей. Внедрены триггерные анимации и нелинейные переходы для имитации живого общения.
+                    </p>
+                    <div class="media-frame">
+                        <iframe src="ispring-course/index.html" title="Курс Японский язык"></iframe>
+                    </div>
+                    <div class="tool-badges">
+                        <span class="tool-badge">iSpring Suite</span>
+                        <span class="tool-badge">PowerPoint</span>
+                        <span class="tool-badge">AI (Midjourney)</span>
+                        <span class="tool-badge">Геймификация</span>
+                    </div>
+                </div>
+
+                <!-- Slide 3: Критическое мышление -->
+                <div class="swiper-slide">
+                    <div class="slide-header">
+                        <div class="slide-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        <h3 class="slide-title">Курс «Критическое мышление»</h3>
+                    </div>
+                    <p class="slide-desc">
+                        Интерактивный слайдовый курс с геймификацией. Реализовала сложные ветвления сценария с использованием переменных и триггеров, что позволяет предоставить учащемуся максимально персонализированную обратную связь.
+                    </p>
+                    <div class="media-frame">
+                        <iframe src="https://marysnape.github.io/desktop-tutorial/" title="Articulate Course"></iframe>
+                    </div>
+                    <div class="tool-badges">
+                        <span class="tool-badge">Articulate Storyline</span>
+                        <span class="tool-badge">Геймификация</span>
+                        <span class="tool-badge">Переменные и триггеры</span>
+                        <span class="tool-badge">Ветвления</span>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Оценка 360 -->
+                <div class="swiper-slide">
+                    <div class="slide-header">
+                        <div class="slide-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <h3 class="slide-title">Оценка 360: Методология и материалы</h3>
+                    </div>
+                    <p class="slide-desc">
+                        Комплексный лонгрид и пакет методических материалов для HR и руководителей. Разработала структуру курса, а также создала практические инструменты: шаблоны анкет, чек-листы готовности и дерево принятия решений для оценки целесообразности проведения оценки 360.
+                    </p>
+                    <div class="screenshots-grid">
+                        <img src="images/screen1.png" alt="Скриншот 1">
+                        <img src="images/screen2.png" alt="Скриншот 2">
+                        <img src="images/screen3.png" alt="Скриншот 3">
+                        <img src="images/screen4.png" alt="Скриншот 4">
+                    </div>
+                    <div class="tool-badges">
+                        <span class="tool-badge">ScrollTool</span>
+                        <span class="tool-badge">Методология</span>
+                        <span class="tool-badge">Figma</span>
+                        <span class="tool-badge">HR-инструменты</span>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Иврит -->
+                <div class="swiper-slide">
+                    <div class="slide-header">
+                        <div class="slide-icon"><i class="fas fa-headphones"></i></div>
+                        <h3 class="slide-title">Тренажеры по Ивриту</h3>
+                    </div>
+                    <p class="slide-desc">
+                        Серия интерактивных заданий для языковой школы (Ульпан). Фокус на преодолении языкового барьера и развитии навыков аудирования. Использовала AI-синтез речи для создания естественных аудиоупражнений и настроила задания с ручным вводом для тренировки орфографии с мгновенной автоматической проверкой.
+                    </p>
+                    <div class="screenshots-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 0 auto 24px;">
+                        <img src="images/screen6.png" alt="Скриншот тренажера Иврит">
+                    </div>
+                    <div class="tool-badges">
+                        <span class="tool-badge">AI-синтез речи</span>
+                        <span class="tool-badge">Интерактив</span>
+                        <span class="tool-badge">Методические материалы</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="container">
+        <div class="resume-section">
+            <div class="section-header">
+                <h2 class="section-title">Опыт работы</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Февраль 2024 — Настоящее время</div>
+                    <div class="timeline-role">Методист / Разработчик курсов (Проектная работа)</div>
+                    <div class="timeline-company">Фриланс / Прямые контракты</div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Полный цикл создания курсов («Оценка 360», «Субсидии для бизнеса»): от интервью с экспертами и CJM до верстки кастомных HTML-тренажеров и загрузки в LMS.</li>
+                            <li>Сократила время онбординга менеджеров строительной компании с 2 недель до 1 недели за счет реструктуризации материалов.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Январь 2024 — Февраль 2025</div>
+                    <div class="timeline-role">Методист</div>
+                    <div class="timeline-company">НЦПО (Московская академия предпринимательства)</div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Перевод методических материалов в формат онлайн-курсов, загрузка модулей и настройка тестов в LMS Skillspace.</li>
+                            <li>Сократила время подготовки визуальных материалов на 50% за счет внедрения нейросетей (ChatGPT, DeepSeek, Gemini).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Ноябрь 2022 — Ноябрь 2023</div>
+                    <div class="timeline-role">Методист-разработчик</div>
+                    <div class="timeline-company">Ульпан (Школа иврита, Израиль)</div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Разработала 10 интерактивных модулей для группы из 30 человек, что впервые дало студентам возможность закреплять знания дома.</li>
+                            <li>Снизила время подготовки преподавателя к занятиям на 20% за счет создания готовых интерактивных тренажеров.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">9 месяцев</div>
+                    <div class="timeline-role">Разработчик учебных материалов</div>
+                    <div class="timeline-company">Prizma Optic (Израиль)</div>
+                    <div class="timeline-desc">
+                        <ul>
+                            <li>Разработка цикла из 3 слайдовых курсов и 20 скриптов/инструкций в iSpring Suite для онбординга новых сотрудников отдела продаж.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="container" style="margin-bottom: 60px;">
+        <div class="resume-section">
+            <div class="section-header">
+                <h2 class="section-title">Образование</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-role">Высшее образование</div>
+                    <div class="timeline-company">МГППУ (Московский государственный психолого-педагогический университет)</div>
+                    <div class="timeline-desc">Психология, педагогика</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-role">Курс повышения квалификации</div>
+                    <div class="timeline-company">Геймификация в обучении</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-role">Профессиональная переподготовка</div>
+                    <div class="timeline-company">Skillbox — Методист онлайн-курсов</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-role">Курс повышения квалификации</div>
+                    <div class="timeline-company">Академия НАДПТО — Коучинг в психологическом консультировании</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contacts -->
+    <footer id="contacts" class="container">
+        <h2 class="section-title" style="display: block; text-align: center;">Давайте создадим полезный продукт вместе</h2>
+        <div class="contact-links">
+            <a href="mailto:marianne.154@yandex.ru" class="contact-item"><i class="fas fa-envelope"></i> marianne.154@yandex.ru</a>
+            <a href="tel:+79150073662" class="contact-item"><i class="fas fa-phone"></i> +7 (915) 007-36-62</a>
+            <a href="https://t.me/ваш_ник" target="_blank" class="contact-item"><i class="fab fa-telegram"></i> Telegram</a>
+        </div>
+        <p style="margin-top: 30px; color: var(--text-secondary); font-size: 0.85rem;">© 2024 Мария Дубровина. Методист & Instructional Designer.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: { el: ".swiper-pagination", clickable: true },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        });
+    </script>
+</body>
+</html>
